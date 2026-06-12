@@ -1,61 +1,45 @@
 import type { TranscriptionAnalysisOptions } from "../libs/types";
 
 /**
- * Default options sent with every transcribe job (maps to Python `TranscriptionAnalysisOptions`).
- *
- * Customize this file for your use case: domain context, speaker roles, scoring rules,
- * chunking thresholds, and per-pass settings. The API merges omitted fields with its
- * own server defaults.
+ * Interview-specific analysis options for InterviewIQ.
+ * Evaluates job candidates on answer quality, communication clarity,
+ * confidence, and delivery.
  */
 export const defaultAnalysisOptions: TranscriptionAnalysisOptions = {
   context:
-    "Service conversation between staff and customer. Evaluate clarity, responsiveness, and problem resolution.",
-  speaker_roles: ["staff", "customer", "other"],
-  primary_role: "staff",
-  default_role: "customer",
+    "Job interview session between a candidate and an interviewer. Evaluate the candidate's answer quality, communication clarity, confidence, and professional delivery. Focus on how well the candidate responds to questions.",
+  speaker_roles: ["candidate", "interviewer", "other"],
+  primary_role: "candidate",
+  default_role: "interviewer",
   role_display: {
-    staff: "Staff",
-    customer: "Customer",
+    candidate: "Candidate",
+    interviewer: "Interviewer",
     other: "Other",
   },
   scoring_rules: [
     {
-      id: "courtesy_empathy",
-      title: "Courtesy & empathy",
-      rule: "Score 0-{max_score} for courtesy and empathy. Penalize missing greetings and unprofessional tone.",
+      id: "answer_quality",
+      title: "Answer Quality",
+      rule: "Score 0-{max_score} for relevance, depth, and structure of answers. Penalize vague, off-topic, or incomplete responses. Reward STAR method usage (Situation, Task, Action, Result).",
       params: { max_score: "100" },
     },
     {
-      id: "responsiveness",
-      title: "Responsiveness",
-      rule: "Score 0-{max_score} for clear, prompt answers. Penalize vague replies and long unexplained silences.",
+      id: "communication_clarity",
+      title: "Communication Clarity",
+      rule: "Score 0-{max_score} for clear articulation, logical flow, and absence of filler words (um, uh, like). Penalize rambling, contradictions, or unclear phrasing.",
       params: { max_score: "100" },
     },
     {
-      id: "standard_compliance",
-      title: "Standard compliance",
-      rule: "Score 0-{max_score} for adherence to service standards: greeting, needs confirmation, accurate information, closing.",
+      id: "confidence",
+      title: "Confidence & Delivery",
+      rule: "Score 0-{max_score} for confident tone, appropriate pacing, and assertive language. Penalize excessive hedging, uncertainty markers, and weak openers.",
       params: { max_score: "100" },
     },
     {
-      id: "problem_solving",
-      title: "Problem solving",
-      rule: "Score 0-{max_score} for resolving the stated need with a clear action plan.",
+      id: "professionalism",
+      title: "Professionalism",
+      rule: "Score 0-{max_score} for professional language, respectful tone, and appropriate interview etiquette. Penalize informal slang, interruptions, or negative framing.",
       params: { max_score: "100" },
     },
   ],
-  // chunking: {
-  //   enabled: true,
-  //   gap_threshold_ms: 180_000,
-  //   silence_event_ms: 10_000,
-  //   min_chunk_segments: 3,
-  //   evaluate_per_chunk: true,
-  // },
-  // pass_settings: {
-  //   noise_filter: { enabled: false },
-  //   echo_dedup: { enabled: false },
-  //   speaker_role: { fallback_speaker_id: "speaker_0" },
-  //   category_evaluation: { base_score: 100 },
-  //   overall_summary: { empty_label: "unknown" },
-  // },
 };
