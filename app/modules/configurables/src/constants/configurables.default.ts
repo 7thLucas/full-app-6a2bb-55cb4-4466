@@ -12,35 +12,45 @@ export type TBrandColor = {
   accent: string;
 };
 
+export type TScoreLabels = {
+  high: string;
+  medium: string;
+  low: string;
+};
+
 export type TDefaultConfigurableData = {
   appName: string;
   logoUrl: string;
+  tagline?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  ctaLabel?: string;
   brandColor: TBrandColor;
-  // Mirror new schema fields here. Example:
-  //   maxItemsPerPage?: number;
-  //   enableNotifications?: boolean;
-  //   featuredCategories?: string[];
+  scoreLabels?: TScoreLabels;
+  maxSessionsPerPage?: number;
+  enablePublicSignup?: boolean;
+  footerText?: string;
 };
 
 export const defaultConfigurablesData: TDefaultConfigurableData = {
-  appName: "FILL_APP_NAME_HERE",
+  appName: "InterviewIQ",
   logoUrl: "FILL_LOGO_URL_HERE",
+  tagline: "AI-Powered Interview Performance Review",
+  heroTitle: "Know Exactly How You Performed",
+  heroSubtitle:
+    "Upload your interview recording. Get objective, structured feedback on answer quality, clarity, confidence, and delivery — in minutes.",
+  ctaLabel: "Analyze My Interview",
   brandColor: {
-    primary: "FILL_PRIMARY_COLOR_HERE",
-    secondary: "FILL_SECONDARY_COLOR_HERE",
-    accent: "FILL_ACCENT_COLOR_HERE",
+    primary: "#1E3A5F",
+    secondary: "#0F2440",
+    accent: "#00BCD4",
   },
-  // ─────────────────────────────────────────────────────────────────────
-  // Add new field defaults here. See RULES.md §5 for per-type shape.
-  // Required branding fields → use the FILL_X_HERE placeholder pattern.
-  // Optional/typed defaults → real value with a "// fill it here" comment:
-  //
-  //   maxItemsPerPage: 12,                     // fill it here
-  //   enableNotifications: true,               // fill it here
-  //   featuredCategories: [],                  // fill it here
-  //   defaultLanguage: "en",                   // must match enum options
-  //   launchDate: "2025-01-01T00:00:00.000Z",  // ISO-8601
-  //   heroImage: "",                           // resolved URL after upload
-  //   galleryImages: [],                       // array of resolved URLs
-  // ─────────────────────────────────────────────────────────────────────
+  scoreLabels: {
+    high: "Strong",
+    medium: "Needs Work",
+    low: "Critical",
+  },
+  maxSessionsPerPage: 10,
+  enablePublicSignup: true,
+  footerText: "© 2026 InterviewIQ. All rights reserved.",
 };
